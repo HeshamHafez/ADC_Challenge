@@ -10,20 +10,21 @@
 #include <util/delay.h>
 int main(void)
 {
-	uint16 res_value;
+	uint32 temp = 0;
 	LCD_init(); /* initialize LCD driver */
 	ADC_Init(); /* initialize ADC driver */
-	LCD_clearScreen(); /* clear LCD at the beginning */
-	/* display this string "ADC Value = " only once at LCD */
-	LCD_displayString("ADC Value = ");
-	ADC_SelectChannel(ADC0);
+	LCD_displayString("Temp = ");
+	LCD_goToRowColumn(0,10);
+	/* display character 'C' on the screen "Temp =   C" */
+	LCD_displayCharacter('C');
 	SET_BIT(SREG,I);
 	ADC_StartConversion();
-    while(1)
-    {
-		LCD_goToRowColumn(0,12); /* display the number every time at this position */
-		res_value = ADC_ReadChannel(); /* read channel zero where the potentiometer is connect */
-		LCD_intgerToString(res_value); /* display the ADC value on LCD screen */
-    }
+	while(1)
+	{
+		LCD_goToRowColumn(0,7); /* display the number every time at this position */
+		temp = ADC_ReadChannel(); /* read channel zero where the potentiometer is connect */
+		temp = (temp*150*5)/(1023*1.5); /* calculate the temp from the ADC value*/
+		LCD_intgerToString(temp); /* display the temp on LCD screen */
+	}
 }
 
