@@ -8,21 +8,24 @@ C_SRCS += \
 ../ADC_cfg.c \
 ../DIO.c \
 ../lcd.c \
-../main.c 
+../main.c \
+../pwm.c 
 
 OBJS += \
 ./ADC.o \
 ./ADC_cfg.o \
 ./DIO.o \
 ./lcd.o \
-./main.o 
+./main.o \
+./pwm.o 
 
 C_DEPS += \
 ./ADC.d \
 ./ADC_cfg.d \
 ./DIO.d \
 ./lcd.d \
-./main.d 
+./main.d \
+./pwm.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
