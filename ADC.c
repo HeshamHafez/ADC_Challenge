@@ -22,9 +22,14 @@ volatile uint32 g_adcResult = 0;
 
 ISR(ADC_vect)
 {
-	/*g_adcResult = ADC;*/
-	g_adcResult = ADC_ReadChannel(); /* read channel zero where the potentiometer is connect */
-	g_adcResult = (g_adcResult*150*5)/(1023*1.5); /* calculate the temp from the ADC value*/
+	if(ADC_Config.Adjustment == LEFT_ADJUSTMENT)
+	{
+		g_adcResult = (ADC>>6);
+	}
+	else
+	{
+		g_adcResult = ADC;
+	}
 
 }
 /*******************************************************************************
@@ -275,18 +280,13 @@ void ADC_StartConversion(void)
 
 uint16 ADC_ReadChannel(void)
 {
-	uint16 Data;
-	switch(ADC_Config.Adjustment)
+	if(ADC_Config.Adjustment == LEFT_ADJUSTMENT)
 	{
-	case RIGHT_ADJUSTMENT:
-		Data = ADC;
-		break;
-	case LEFT_ADJUSTMENT:
 		ADC = (ADC>>6);
-		break;
-	default:
-		Data = ADC;
-		break;
+	}
+	else
+	{
+		/*Do nothing*/
 	}
 	return ADC;
 }
