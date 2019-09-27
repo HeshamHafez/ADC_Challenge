@@ -23,7 +23,7 @@
 #include "std_types.h"
 #include <avr/interrupt.h>
 
-extern volatile uint16 g_adcResult;
+extern volatile uint32 g_adcResult;
 
 typedef enum
 {
@@ -69,6 +69,7 @@ typedef enum
 {
 	FREE_RUNNING_MODE 	= 0,
 	EXTERNAL_INTRRUPT_0 = 2,
+	TIMER0_COMPARE_MATCH= 3,
 	SINGLE_MODE
 }EnmADCAutoTriggerSource_t;
 

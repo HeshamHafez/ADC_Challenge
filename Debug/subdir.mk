@@ -7,6 +7,7 @@ C_SRCS += \
 ../ADC.c \
 ../ADC_cfg.c \
 ../DIO.c \
+../TImer.c \
 ../lcd.c \
 ../main.c \
 ../pwm.c 
@@ -15,6 +16,7 @@ OBJS += \
 ./ADC.o \
 ./ADC_cfg.o \
 ./DIO.o \
+./TImer.o \
 ./lcd.o \
 ./main.o \
 ./pwm.o 
@@ -23,6 +25,7 @@ C_DEPS += \
 ./ADC.d \
 ./ADC_cfg.d \
 ./DIO.d \
+./TImer.d \
 ./lcd.d \
 ./main.d \
 ./pwm.d 

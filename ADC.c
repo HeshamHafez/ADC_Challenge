@@ -18,11 +18,13 @@
  *******************************************************************************/
 #include "ADC.h"
 
-volatile uint16 g_adcResult = 0;
+volatile uint32 g_adcResult = 0;
 
 ISR(ADC_vect)
 {
-	g_adcResult = ADC;
+	/*g_adcResult = ADC;*/
+	g_adcResult = ADC_ReadChannel(); /* read channel zero where the potentiometer is connect */
+	g_adcResult = (g_adcResult*150*5)/(1023*1.5); /* calculate the temp from the ADC value*/
 
 }
 /*******************************************************************************
@@ -216,6 +218,12 @@ void ADC_Init(void)
 		CLEAR_BIT(ADC_SFIOR,ADC_ADTS2);
 		SET_BIT(ADC_SFIOR,ADC_ADTS1);
 		CLEAR_BIT(ADC_SFIOR,ADC_ADTS0);
+		break;
+	case TIMER0_COMPARE_MATCH:
+		SET_BIT(ADC_ADCSRA,ADC_ADATE);
+		CLEAR_BIT(ADC_SFIOR,ADC_ADTS2);
+		SET_BIT(ADC_SFIOR,ADC_ADTS1);
+		SET_BIT(ADC_SFIOR,ADC_ADTS0);
 		break;
 	case SINGLE_MODE:
 		CLEAR_BIT(ADC_ADCSRA,ADC_ADATE);
